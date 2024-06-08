@@ -2,6 +2,15 @@ import { useJsonData } from "@/context/JsonDataContext";
 import React from "react";
 import InvoiceCard from "./InvoiceCard";
 
+type Invoice = {
+  invoice_number: string;
+  due_date: string;
+  amount: number;
+  status: "pending" | "approved";
+  supplier: string;
+  currency: string;
+};
+
 export default function Invoices() {
   const { data, sortBy, sortDirection } = useJsonData();
 
@@ -14,12 +23,12 @@ export default function Invoices() {
       }
       groups[supplier].push(invoice);
       return groups;
-    }, {} as { [key: string]: any[] });
+    }, {} as { [key: string]: Invoice[] });
   };
 
   // sorting invoices depending on sortBy conext value
   const sortInvoices = (
-    invoices: any[],
+    invoices: Invoice[],
     sortBy: string,
     sortDirection: string
   ) => {
