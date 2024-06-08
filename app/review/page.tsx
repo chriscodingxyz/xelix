@@ -20,8 +20,11 @@ export default function ReviewPage() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden pt-16">
-      <OriginalStats />
-      <SortOptions />
+      <div className="flex flex-col md:flex-row md:justify-between">
+        <OriginalStats />
+        <SortOptions />
+      </div>
+
       <div className="flex-grow overflow-auto ">
         <Invoices />
       </div>

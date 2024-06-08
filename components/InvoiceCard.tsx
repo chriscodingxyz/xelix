@@ -53,7 +53,7 @@ export default function InvoiceCard({ invoice }: any) {
             variant={"outline"}
             size={"sm"}
           >
-            Approve
+            {invoice.status === "approved" ? "reset" : "Approve"}
           </Button>
         </span>
       </div>
