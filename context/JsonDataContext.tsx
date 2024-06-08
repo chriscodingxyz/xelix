@@ -5,12 +5,14 @@ import { createContext, useContext, ReactNode, useState } from "react";
 interface JsonDataContextType {
   uploadedJsonData: any;
   setUploadedJsonData: (data: any) => void;
-  data: [];
+  data: any[];
   setData: (data: any) => void;
-  sortBy: "invoice_number" | "date" | "amount" | "status";
-  setSortBy: (sortBy: "invoice_number" | "date" | "amount" | "status") => void;
-  sortDirection: string;
-  setSortDirection: (direction: string) => void;
+  sortBy: "invoice_number" | "due_date" | "amount" | "status";
+  setSortBy: (
+    sortBy: "invoice_number" | "due_date" | "amount" | "status"
+  ) => void;
+  sortDirection: "asc" | "desc";
+  setSortDirection: (direction: "asc" | "desc") => void;
 }
 
 // ok lets create the context
@@ -23,9 +25,9 @@ export const JsonDataProvider = ({ children }: { children: ReactNode }) => {
   const [uploadedJsonData, setUploadedJsonData] = useState<any>(null);
   const [data, setData] = useState<any>(null);
   const [sortBy, setSortBy] = useState<
-    "invoice_number" | "date" | "amount" | "status"
+    "invoice_number" | "due_date" | "amount" | "status"
   >("invoice_number");
-  const [sortDirection, setSortDirection] = useState<string>("asc");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   return (
     <JsonDataContext.Provider
