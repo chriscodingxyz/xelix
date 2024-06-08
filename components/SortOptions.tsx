@@ -3,12 +3,13 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { useJsonData } from "@/context/JsonDataContext";
+import { ArrowUp, ArrowDown } from "lucide-react";
 
 export default function SortOptions() {
   const { sortBy, setSortBy, sortDirection, setSortDirection } = useJsonData();
 
   const handleSort = (
-    criteria: "invoice_number" | "date" | "amount" | "status"
+    criteria: "invoice_number" | "due_date" | "amount" | "status"
   ) => {
     if (sortBy === criteria) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -18,14 +19,34 @@ export default function SortOptions() {
     }
   };
 
+  const renderButton = (
+    criteria: "invoice_number" | "due_date" | "amount" | "status",
+    label: string
+  ) => (
+    <Button
+      variant={sortBy === criteria ? "default" : "outline"}
+      onClick={() => handleSort(criteria)}
+      className="flex items-center space-x-2"
+    >
+      <span>{label}</span>
+      {sortBy === criteria &&
+        (sortDirection === "asc" ? (
+          <ArrowUp size={16} />
+        ) : (
+          <ArrowDown size={16} />
+        ))}
+    </Button>
+  );
+
   return (
-    <div className="flex-center space-x-2">
-      <Button onClick={() => handleSort("invoice_number")}>
-        Sort by Invoice Number
-      </Button>
-      <Button onClick={() => handleSort("date")}>Sort by Date</Button>
-      <Button onClick={() => handleSort("amount")}>Sort by Amount</Button>
-      <Button onClick={() => handleSort("status")}>Sort by Status</Button>
+    <div className="flex flex-col items-center p-4">
+      <h1 className="text-2xl font-bold mb-4">Sort Options</h1>
+      <div className="flex space-x-2 flex-wrap justify-center">
+        {renderButton("invoice_number", "Invoice Number")}
+        {renderButton("due_date", "Date")}
+        {renderButton("amount", "Amount")}
+        {renderButton("status", "Status")}
+      </div>
     </div>
   );
 }
