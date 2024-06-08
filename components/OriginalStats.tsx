@@ -9,7 +9,7 @@ export default function OriginalStats() {
   const overallDate = uploadedJsonData?.pay_run.date;
 
   return (
-    <div className="border-2 border-blue-500">
+    <div className="">
       <p>Total Amount: £{totalAmount.toLocaleString()}</p>
       <p>Invoice Batch Id: {InvoiceBatchId}</p>
       <p>Overall Date: {overallDate}</p>
