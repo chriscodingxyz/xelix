@@ -9,6 +9,8 @@ interface JsonDataContextType {
   setData: (data: any) => void;
   sortBy: "invoice_number" | "date" | "amount" | "status";
   setSortBy: (sortBy: "invoice_number" | "date" | "amount" | "status") => void;
+  sortDirection: string;
+  setSortDirection: (direction: string) => void;
 }
 
 // ok lets create the context
@@ -23,6 +25,7 @@ export const JsonDataProvider = ({ children }: { children: ReactNode }) => {
   const [sortBy, setSortBy] = useState<
     "invoice_number" | "date" | "amount" | "status"
   >("invoice_number");
+  const [sortDirection, setSortDirection] = useState<string>("asc");
 
   return (
     <JsonDataContext.Provider
@@ -33,6 +36,8 @@ export const JsonDataProvider = ({ children }: { children: ReactNode }) => {
         setData,
         sortBy,
         setSortBy,
+        sortDirection,
+        setSortDirection,
       }}
     >
       {children}

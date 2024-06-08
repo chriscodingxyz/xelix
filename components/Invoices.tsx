@@ -1,11 +1,9 @@
-// components/Invoices.tsx
-
 import { useJsonData } from "@/context/JsonDataContext";
 import React from "react";
 import InvoiceCard from "./InvoiceCard";
 
 export default function Invoices() {
-  const { data } = useJsonData();
+  const { data, sortBy, sortDirection } = useJsonData();
 
   // makes most sense to group by supplier and then sort within each supplier
   const groupBySupplier = (invoices: any[]) => {
@@ -19,6 +17,33 @@ export default function Invoices() {
     }, {} as { [key: string]: any[] });
   };
 
+  // sorting invoices depending on sortBy conext value
+  const sortInvoices = (
+    invoices: any[],
+    sortBy: string,
+    sortDirection: string
+  ) => {
+    const sortedInvoices = invoices.sort((a, b) => {
+      let comparison = 0;
+
+      if (sortBy === "invoice_number") {
+        comparison = a.invoice_number.localeCompare(b.invoice_number);
+      } else if (sortBy === "due_date") {
+        comparison =
+          new Date(a.due_date).getTime() - new Date(b.due_date).getTime();
+      } else if (sortBy === "amount") {
+        comparison = a.amount - b.amount;
+      } else if (sortBy === "status") {
+        const statusOrder = { pending: 1, approved: 2 };
+        comparison = statusOrder[a.status] - statusOrder[b.status];
+      }
+
+      return sortDirection === "asc" ? comparison : -comparison;
+    });
+
+    return sortedInvoices;
+  };
+
   const groupedInvoices = groupBySupplier(data || []);
 
   return (
@@ -28,7 +53,11 @@ export default function Invoices() {
           <div key={supplier} className="mb-8">
             <h2 className="text-2xl font-bold mb-4">{supplier}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {groupedInvoices[supplier].map((invoice: any) => (
+              {sortInvoices(
+                groupedInvoices[supplier],
+                sortBy,
+                sortDirection
+              ).map((invoice: any) => (
                 <InvoiceCard key={invoice.invoice_number} invoice={invoice} />
               ))}
             </div>
