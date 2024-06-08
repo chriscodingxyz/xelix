@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 export default function UploadPage() {
-  const { setUploadedJsonData } = useJsonData();
+  const { setUploadedJsonData, uploadedJsonData } = useJsonData();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -21,6 +21,7 @@ export default function UploadPage() {
             console.log("uploaded json data");
 
             router.push("/review");
+            console.log("upload page, uploadedjson===>", uploadedJsonData);
           } catch (error) {
             console.error("Error parsing JSON:", error);
           }

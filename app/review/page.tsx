@@ -14,7 +14,7 @@ export default function ReviewPage() {
     redirect("/upload");
   }
   // this was getting re-rendered and resetting the data every time, it will only set the data if there was none to begin with
-  if (!data) {
+  if (!data || data.length === 0) {
     setData(uploadedJsonData.pay_run.invoices);
   }
 
