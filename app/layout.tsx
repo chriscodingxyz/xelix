@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ThemeToggle from "@/components/ThemeToggle";
 import Header from "@/components/Header";
+import { JsonDataProvider } from "@/context/JsonDataContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* <JsonDataProvider> */}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -29,6 +31,7 @@ export default function RootLayout({
           <Header />
           {children}
         </ThemeProvider>
+        {/* </JsonDataProvider> */}
       </body>
     </html>
   );
