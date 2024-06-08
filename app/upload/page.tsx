@@ -6,13 +6,18 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 export default function UploadPage() {
-  const { setUploadedJsonData, uploadedJsonData } = useJsonData();
+  const { setUploadedJsonData } = useJsonData();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   const handleFileUpload = useCallback(
-    (file: File) => {
-      if (file && file.type === "application/json") {
+    (file: File | undefined) => {
+      if (!file) {
+        console.error("No file provided.");
+        return;
+      }
+
+      if (file.type === "application/json") {
         const reader = new FileReader();
         reader.onload = (e) => {
           try {
@@ -21,7 +26,6 @@ export default function UploadPage() {
             console.log("uploaded json data");
 
             router.push("/review");
-            console.log("upload page, uploadedjson===>", uploadedJsonData);
           } catch (error) {
             console.error("Error parsing JSON:", error);
           }
@@ -70,7 +74,6 @@ export default function UploadPage() {
     >
       <div className="p-4 rounded shadow-md w-64 h-32 flex flex-col items-center justify-center border-2 border-dashed border-gray-300">
         <p className="text-center">Drag and drop a .json file</p>
-        {/* <p className="text-center py-2">-or-</p> */}
         <Button onClick={handleButtonClick}>Browse Files</Button>
         <input
           type="file"
