@@ -1,15 +1,15 @@
 "use client";
 
 import { useJsonData } from "@/context/JsonDataContext";
-import { cn } from "@/lib/utils";
-import { CalendarClock } from "lucide-react";
+import { capitalizeWords, cn } from "@/lib/utils";
+import { CalendarClock, EllipsisVertical, RotateCcw } from "lucide-react";
 import React from "react";
 import { Button } from "@/components/ui/button";
 
 export default function InvoiceCard({ invoice }: any) {
   const { data, sortBy, setData } = useJsonData();
 
-  function handleStatus(invoiceNumber: string) {
+  const handleApprove = (invoiceNumber: string) => {
     const updatedData = data.map((inv) => {
       if (inv.invoice_number === invoiceNumber) {
         return { ...inv, status: "approved" };
@@ -17,16 +17,24 @@ export default function InvoiceCard({ invoice }: any) {
       return inv;
     });
     setData(updatedData);
-    console.log("updated data ==>>>", updatedData);
-  }
+    console.log("Updated data:", updatedData);
+  };
+
+  const handlePending = (invoiceNumber: string) => {
+    const updatedData = data.map((inv) => {
+      if (inv.invoice_number === invoiceNumber) {
+        return { ...inv, status: "pending" };
+      }
+      return inv;
+    });
+    setData(updatedData);
+    console.log("Updated data:", updatedData);
+  };
 
   return (
     <div className="border rounded-lg shadow-md p-4 m-2 bg-background">
       <p
-        className={cn(
-          "text-right ",
-          sortBy === "invoice_number" && "font-bold"
-        )}
+        className={cn("text-right", sortBy === "invoice_number" && "font-bold")}
       >
         {invoice.invoice_number}
       </p>
@@ -45,16 +53,33 @@ export default function InvoiceCard({ invoice }: any) {
             invoice.status === "approved" && "text-green-500"
           )}
         >
-          {invoice.status}
+          {capitalizeWords(invoice.status)}
         </span>
         <span>
-          <Button
-            onClick={() => handleStatus(invoice.invoice_number)}
-            variant={"outline"}
-            size={"sm"}
-          >
-            {invoice.status === "approved" ? "reset" : "Approve"}
-          </Button>
+          {invoice.status === "approved" ? (
+            <Button
+              onClick={() => handlePending(invoice.invoice_number)}
+              variant="ghost"
+              size="sm"
+            >
+              <RotateCcw className="p-1" />
+            </Button>
+          ) : (
+            // <Button
+            //   onClick={() => handlePending(invoice.invoice_number)}
+            //   size={"sm"}
+            //   variant={"ghost"}
+            // >
+            //   <EllipsisVertical className="p-1" />
+            // </Button>
+            <Button
+              onClick={() => handleApprove(invoice.invoice_number)}
+              variant="outline"
+              size="sm"
+            >
+              Approve
+            </Button>
+          )}
         </span>
       </div>
     </div>
