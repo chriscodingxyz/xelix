@@ -26,7 +26,7 @@ export default function SortOptions() {
     <Button
       variant={sortBy === criteria ? "default" : "outline"}
       onClick={() => handleSort(criteria)}
-      className="flex items-center space-x-2"
+      className="flex items-center space-x-2 text-xs"
     >
       <span>{label}</span>
       {sortBy === criteria &&

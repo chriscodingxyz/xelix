@@ -53,7 +53,8 @@ export default function InvoiceCard({ invoice }: any) {
             invoice.status === "approved" && "text-green-500"
           )}
         >
-          {capitalizeWords(invoice.status)}
+          {capitalizeWords(invoice.status)}{" "}
+          {invoice.status === "approved" && "✅"}
         </span>
         <span>
           {invoice.status === "approved" ? (
@@ -74,7 +75,7 @@ export default function InvoiceCard({ invoice }: any) {
             // </Button>
             <Button
               onClick={() => handleApprove(invoice.invoice_number)}
-              variant="outline"
+              variant="secondary"
               size="sm"
             >
               Approve

@@ -1,5 +1,11 @@
 import { useJsonData } from "@/context/JsonDataContext";
 import React from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function OriginalStats() {
   const { uploadedJsonData } = useJsonData();
@@ -19,3 +25,19 @@ export default function OriginalStats() {
     </div>
   );
 }
+
+// return (
+//   <div className=" w-full p-4 pt-0">
+//     <Accordion type="single" collapsible>
+//       <AccordionItem value="item-1">
+//         <AccordionTrigger>Stats</AccordionTrigger>
+//         <AccordionContent>
+//           <p>Total Amount: £{totalAmount.toLocaleString()}</p>
+//           <p>Invoice Batch Id: {InvoiceBatchId}</p>
+//           <p>Overall Date: {overallDate}</p>
+//         </AccordionContent>
+//       </AccordionItem>
+//     </Accordion>
+//   </div>
+// );
+// }
