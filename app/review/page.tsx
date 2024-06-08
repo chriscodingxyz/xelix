@@ -8,13 +8,15 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 export default function ReviewPage() {
-  const { uploadedJsonData, setData } = useJsonData();
+  const { uploadedJsonData, data, setData } = useJsonData();
 
   if (!uploadedJsonData) {
     redirect("/upload");
   }
-
-  setData(uploadedJsonData.pay_run.invoices);
+  // this was getting re-rendered and resetting the data every time, it will only set the data if there was none to begin with
+  if (!data) {
+    setData(uploadedJsonData.pay_run.invoices);
+  }
 
   return (
     <div className="flex flex-col h-screen overflow-hidden pt-16">

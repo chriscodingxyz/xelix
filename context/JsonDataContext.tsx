@@ -6,7 +6,7 @@ interface JsonDataContextType {
   uploadedJsonData: any;
   setUploadedJsonData: (data: any) => void;
   data: any[];
-  setData: (data: any) => void;
+  setData: (data: any[]) => void;
   sortBy: "invoice_number" | "due_date" | "amount" | "status";
   setSortBy: (
     sortBy: "invoice_number" | "due_date" | "amount" | "status"
@@ -23,7 +23,7 @@ const JsonDataContext = createContext<JsonDataContextType | undefined>(
 // now lets create the provider component
 export const JsonDataProvider = ({ children }: { children: ReactNode }) => {
   const [uploadedJsonData, setUploadedJsonData] = useState<any>(null);
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<any[]>([]);
   const [sortBy, setSortBy] = useState<
     "invoice_number" | "due_date" | "amount" | "status"
   >("invoice_number");
