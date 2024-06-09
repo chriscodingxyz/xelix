@@ -102,76 +102,77 @@ export default function Invoices() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <div className="flex-grow overflow-auto p-4">
+      <div className="flex-grow overflow-auto px-4">
         {Object.keys(groupedInvoices).map((supplier) => (
           <div key={supplier} className="mb-8">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold mb-4">{supplier}</h2>
-              <div className="flex-center ">
-                {groupedInvoices[supplier].some(
-                  (inv: TInvoice) => inv.excluded
-                ) ? (
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button
-                        onClick={() => setSelectedSupplier(supplier)}
-                        variant={"linkHover2"}
-                        size={"tiny"}
-                        className="text-xs"
-                      >
-                        Approve All
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>
-                          Approve All Invoices
-                        </AlertDialogTitle>
-                        <AlertDialogDescription>
-                          Do you want to approve all invoices for {supplier} or
-                          only the non-excluded ones?
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction
-                          onClick={() => {
-                            approveAllByComp(supplier, false);
-                            setSelectedSupplier(null);
-                          }}
-                        >
-                          Approve Non-Excluded
-                        </AlertDialogAction>
-                        <AlertDialogAction
-                          onClick={() => {
-                            approveAllByComp(supplier, true);
-                            setSelectedSupplier(null);
-                          }}
+            <div className="sticky top-0 bg-white z-10">
+              <div className="flex justify-between items-center  py-2">
+                <h2 className="text-2xl font-bold">{supplier}</h2>
+                <div className="flex-center space-x-2">
+                  {groupedInvoices[supplier].some(
+                    (inv: TInvoice) => inv.excluded
+                  ) ? (
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          onClick={() => setSelectedSupplier(supplier)}
+                          variant={"linkHover2"}
+                          size={"tiny"}
+                          className="text-xs"
                         >
                           Approve All
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                ) : (
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Approve All Invoices
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Do you want to approve all invoices for {supplier}{" "}
+                            or only the non-excluded ones?
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => {
+                              approveAllByComp(supplier, false);
+                              setSelectedSupplier(null);
+                            }}
+                          >
+                            Approve Non-Excluded
+                          </AlertDialogAction>
+                          <AlertDialogAction
+                            onClick={() => {
+                              approveAllByComp(supplier, true);
+                              setSelectedSupplier(null);
+                            }}
+                          >
+                            Approve All
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  ) : (
+                    <Button
+                      onClick={() => approveAllByComp(supplier, true)}
+                      variant={"linkHover2"}
+                      size={"tiny"}
+                      className="text-xs"
+                    >
+                      Approve All
+                    </Button>
+                  )}
                   <Button
-                    onClick={() => approveAllByComp(supplier, true)}
+                    onClick={() => excludeAllByComp(supplier)}
                     variant={"linkHover2"}
                     size={"tiny"}
                     className="text-xs"
                   >
-                    Approve All
+                    Exclude All
                   </Button>
-                )}
-                |
-                <Button
-                  onClick={() => excludeAllByComp(supplier)}
-                  variant={"linkHover2"}
-                  size={"tiny"}
-                  className="text-xs"
-                >
-                  Exclude All
-                </Button>
+                </div>
               </div>
             </div>
 
