@@ -19,19 +19,19 @@ export default function ReviewPage() {
   if (!data || data.length === 0) {
     setData(uploadedJsonData.pay_run.invoices);
   }
-
+  //revert back to here
   return (
     <div className="flex flex-col flex-grow overflow-hidden">
-      <div className="flex  md:justify-between flex-shrink-0">
+      <div className="flex flex-col items-center w-full md:w-auto px-4 pb-2">
         <OriginalStats />
         <SortOptions />
       </div>
-      <div className="flex-grow overflow-auto border-y  border-primary/10">
+      <div className="flex-grow overflow-auto border-y border-primary/10">
         <Invoices />
       </div>
 
       <div className="flex-center">
-        <Button variant={"ghost"} size={"sm"}>
+        <Button variant={"linkHover2"} size={"sm"}>
           <Download className="p-1" /> Download .json
         </Button>
       </div>
