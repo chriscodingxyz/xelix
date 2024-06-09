@@ -5,6 +5,7 @@ import { capitalizeWords, cn } from "@/lib/utils";
 import { CalendarClock, EllipsisVertical, RotateCcw } from "lucide-react";
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 export default function InvoiceCard({ invoice }: any) {
   const { data, sortBy, setData } = useJsonData();
@@ -17,7 +18,6 @@ export default function InvoiceCard({ invoice }: any) {
       return inv;
     });
     setData(updatedData);
-    console.log("Updated data:", updatedData);
   };
 
   const handlePending = (invoiceNumber: string) => {
@@ -28,11 +28,17 @@ export default function InvoiceCard({ invoice }: any) {
       return inv;
     });
     setData(updatedData);
-    console.log("Updated data:", updatedData);
   };
 
+  const isExcluded = invoice.excluded;
+
   return (
-    <div className="border rounded-lg shadow-md p-4 m-2 bg-background">
+    <div
+      className={cn(
+        "border rounded-lg shadow-md p-4 m-2 bg-background",
+        isExcluded && "opacity-50 cursor-not-allowed"
+      )}
+    >
       <div className="flex justify-between">
         <span>{invoice.supplier}</span>
         <span className={cn("", sortBy === "invoice_number" && "font-bold")}>
@@ -48,41 +54,44 @@ export default function InvoiceCard({ invoice }: any) {
         <CalendarClock className="pr-1" /> {invoice.due_date}
       </p>
       <div className="flex items-center justify-between">
-        <span
-          className={cn(
-            sortBy === "status" && "font-bold",
-            invoice.status === "approved" && "text-green-500"
-          )}
-        >
-          {capitalizeWords(invoice.status)}{" "}
-          {invoice.status === "approved" && "✅"}
-        </span>
-        <span>
-          {invoice.status === "approved" ? (
-            <Button
-              onClick={() => handlePending(invoice.invoice_number)}
-              variant="ghost"
-              size="sm"
-            >
-              <RotateCcw className="p-1" />
-            </Button>
-          ) : (
-            // <Button
-            //   onClick={() => handlePending(invoice.invoice_number)}
-            //   size={"sm"}
-            //   variant={"ghost"}
-            // >
-            //   <EllipsisVertical className="p-1" />
-            // </Button>
-            <Button
-              onClick={() => handleApprove(invoice.invoice_number)}
-              variant="secondary"
-              size="sm"
-            >
-              Approve
-            </Button>
-          )}
-        </span>
+        {!isExcluded && (
+          <span
+            className={cn(
+              sortBy === "status" && "font-bold",
+              invoice.status === "approved" && "text-green-500"
+            )}
+          >
+            {capitalizeWords(invoice.status)}{" "}
+            {invoice.status === "approved" && "✅"}
+          </span>
+        )}
+
+        {isExcluded ? (
+          <div className="flex justify-between w-full">
+            <span></span>
+            <Badge variant="outline">❌ Excluded</Badge>
+          </div>
+        ) : (
+          <span>
+            {invoice.status === "approved" ? (
+              <Button
+                onClick={() => handlePending(invoice.invoice_number)}
+                variant="ghost"
+                size="sm"
+              >
+                <RotateCcw className="p-1" />
+              </Button>
+            ) : (
+              <Button
+                onClick={() => handleApprove(invoice.invoice_number)}
+                variant="secondary"
+                size="sm"
+              >
+                Approve
+              </Button>
+            )}
+          </span>
+        )}
       </div>
     </div>
   );
