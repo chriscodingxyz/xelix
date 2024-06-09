@@ -59,13 +59,14 @@ export default function Invoices() {
 
   function approveAllByComp(company: string) {
     const updatedData = data.map((inv) => {
-      if (inv.supplier === company) {
+      if (inv.supplier === company && !inv.excluded) {
         return { ...inv, status: "approved" };
       }
       return inv;
     });
     setData(updatedData);
     toast.info("Approved all invoices for " + company);
+    console.log("Approved all invoices for " + company, updatedData);
   }
 
   return (
