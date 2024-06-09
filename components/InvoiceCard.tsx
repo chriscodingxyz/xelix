@@ -55,9 +55,9 @@ export default function InvoiceCard({ invoice }: any) {
         isExcluded && "opacity-50"
       )}
     >
-      <div>
+      {/* <div>
         {invoice.status} / {isExcluded.toString()}
-      </div>
+      </div> */}
       <div className="flex justify-between">
         <span>{invoice.supplier}</span>
 

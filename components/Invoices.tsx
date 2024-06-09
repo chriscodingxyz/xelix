@@ -87,12 +87,6 @@ export default function Invoices() {
         includeExcluded ? "including excluded" : "non-excluded"
       } invoices for ${company}`
     );
-    console.log(
-      `Approved all ${
-        includeExcluded ? "including excluded" : "non-excluded"
-      } invoices for ${company}`,
-      updatedData
-    );
   }
 
   function excludeAllByComp(company: string) {
@@ -104,7 +98,6 @@ export default function Invoices() {
     });
     setData(updatedData);
     toast.info(`Excluded all invoices for ${company}`);
-    console.log(`Excluded all invoices for ${company}`, updatedData);
   }
 
   return (
