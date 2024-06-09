@@ -141,7 +141,7 @@ export default function Invoices() {
                               setSelectedSupplier(null);
                             }}
                           >
-                            Approve Non-Excluded
+                            Non-Excluded ONLY
                           </AlertDialogAction>
                           <AlertDialogAction
                             onClick={() => {
