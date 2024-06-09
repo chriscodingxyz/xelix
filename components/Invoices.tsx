@@ -1,8 +1,19 @@
 import { useJsonData } from "@/context/JsonDataContext";
-import React from "react";
+import React, { useState } from "react";
 import InvoiceCard from "./InvoiceCard";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type TInvoice = {
   invoice_number: string;
@@ -11,10 +22,12 @@ type TInvoice = {
   status: "pending" | "approved";
   supplier: string;
   currency: string;
+  excluded: boolean;
 };
 
 export default function Invoices() {
   const { data, sortBy, sortDirection, setData } = useJsonData();
+  const [selectedSupplier, setSelectedSupplier] = useState<string | null>(null);
 
   // makes most sense to group by supplier and then sort within each supplier
   const groupBySupplier = (invoices: any[]) => {
@@ -28,7 +41,7 @@ export default function Invoices() {
     }, {} as { [key: string]: TInvoice[] });
   };
 
-  // sorting invoices depending on sortBy conext value
+  // sorting invoices depending on sortBy context value
   const sortInvoices = (
     invoices: TInvoice[],
     sortBy: string,
@@ -57,16 +70,41 @@ export default function Invoices() {
 
   const groupedInvoices = groupBySupplier(data || []);
 
-  function approveAllByComp(company: string) {
+  function approveAllByComp(company: string, includeExcluded: boolean) {
     const updatedData = data.map((inv) => {
-      if (inv.supplier === company && !inv.excluded) {
-        return { ...inv, status: "approved" };
+      if (inv.supplier === company) {
+        if (includeExcluded) {
+          return { ...inv, status: "approved", excluded: false };
+        } else if (!inv.excluded) {
+          return { ...inv, status: "approved" };
+        }
       }
       return inv;
     });
     setData(updatedData);
-    toast.info("Approved all invoices for " + company);
-    console.log("Approved all invoices for " + company, updatedData);
+    toast.info(
+      `Approved all ${
+        includeExcluded ? "including excluded" : "non-excluded"
+      } invoices for ${company}`
+    );
+    console.log(
+      `Approved all ${
+        includeExcluded ? "including excluded" : "non-excluded"
+      } invoices for ${company}`,
+      updatedData
+    );
+  }
+
+  function excludeAllByComp(company: string) {
+    const updatedData = data.map((inv) => {
+      if (inv.supplier === company) {
+        return { ...inv, status: "pending", excluded: true };
+      }
+      return inv;
+    });
+    setData(updatedData);
+    toast.info(`Excluded all invoices for ${company}`);
+    console.log(`Excluded all invoices for ${company}`, updatedData);
   }
 
   return (
@@ -74,17 +112,57 @@ export default function Invoices() {
       <div className="flex-grow overflow-auto p-4">
         {Object.keys(groupedInvoices).map((supplier) => (
           <div key={supplier} className="mb-8">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold mb-4">{supplier}</h2>
-              <span>
+              <div className="flex-center ">
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      onClick={() => setSelectedSupplier(supplier)}
+                      variant={"linkHover2"}
+                      size={"tiny"}
+                    >
+                      Approve All
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Approve All Invoices</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Do you want to approve all invoices for {supplier} or
+                        only the non-excluded ones?
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={() => {
+                          approveAllByComp(supplier, false);
+                          setSelectedSupplier(null);
+                        }}
+                      >
+                        Approve Non-Excluded
+                      </AlertDialogAction>
+                      <AlertDialogAction
+                        onClick={() => {
+                          approveAllByComp(supplier, true);
+                          setSelectedSupplier(null);
+                        }}
+                      >
+                        Approve All
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+                |
                 <Button
-                  onClick={() => approveAllByComp(supplier)}
+                  onClick={() => excludeAllByComp(supplier)}
                   variant={"linkHover2"}
-                  size={"sm"}
+                  size={"tiny"}
                 >
-                  Approve All
+                  Exclude All
                 </Button>
-              </span>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -50,7 +50,7 @@ export default function OriginalStats() {
                   </div>
                   <div>
                     <h2 className="font-bold">
-                      Status ({approvedAmount}/{approvableCount})
+                      Status ({approvedCount}/{approvableCount})
                     </h2>
                     <p className="text-green-500">Approved: {approvedCount}</p>
                     <p>Pending: {pendingCount}</p>

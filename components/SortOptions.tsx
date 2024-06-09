@@ -4,6 +4,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { useJsonData } from "@/context/JsonDataContext";
 import { ArrowUp, ArrowDown } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function SortOptions() {
   const { sortBy, setSortBy, sortDirection, setSortDirection } = useJsonData();
@@ -48,6 +49,7 @@ export default function SortOptions() {
         {renderButton("due_date", "Date")}
         {renderButton("amount", "Amount")}
         {renderButton("status", "Status")}
+        {/* <Checkbox /> */}
       </div>
     </div>
   );
