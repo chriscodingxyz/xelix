@@ -15,8 +15,8 @@ export default function OriginalStats() {
   const overallDate = uploadedJsonData?.pay_run.date;
 
   return (
-    <div className=" w-full p-4 pt-0">
-      <h1 className="text-2xl font-bold">Stats</h1>
+    <div className=" w-full p-4 pt-0 flex-center">
+      {/* <h1 className="text-2xl font-bold">Stats</h1> */}
       <div>
         <p>Total Amount: £{totalAmount.toLocaleString()}</p>
         <p>Invoice Batch Id: {InvoiceBatchId}</p>

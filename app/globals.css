@@ -78,3 +78,15 @@
 .flex-center {
   @apply flex justify-center items-center;
 }
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrolling on the main page */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}

@@ -3,7 +3,9 @@
 import Invoices from "@/components/Invoices";
 import OriginalStats from "@/components/OriginalStats";
 import SortOptions from "@/components/SortOptions";
+import { Button } from "@/components/ui/button";
 import { useJsonData } from "@/context/JsonDataContext";
+import { Download } from "lucide-react";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -19,14 +21,19 @@ export default function ReviewPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden pt-16">
-      <div className="flex flex-col md:flex-row md:justify-between">
+    <div className="flex flex-col flex-grow overflow-hidden">
+      <div className="flex  md:justify-between flex-shrink-0">
         <OriginalStats />
         <SortOptions />
       </div>
-
-      <div className="flex-grow overflow-auto ">
+      <div className="flex-grow overflow-auto border-y  border-primary/10">
         <Invoices />
+      </div>
+
+      <div className="flex-center">
+        <Button variant={"ghost"} size={"sm"}>
+          <Download className="p-1" /> Download .json
+        </Button>
       </div>
     </div>
   );

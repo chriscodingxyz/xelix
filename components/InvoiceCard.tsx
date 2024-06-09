@@ -33,12 +33,13 @@ export default function InvoiceCard({ invoice }: any) {
 
   return (
     <div className="border rounded-lg shadow-md p-4 m-2 bg-background">
-      <p
-        className={cn("text-right", sortBy === "invoice_number" && "font-bold")}
-      >
-        {invoice.invoice_number}
-      </p>
-      <p>{invoice.supplier}</p>
+      <div className="flex justify-between">
+        <span>{invoice.supplier}</span>
+        <span className={cn("", sortBy === "invoice_number" && "font-bold")}>
+          {invoice.invoice_number}
+        </span>
+      </div>
+
       <p className={cn(sortBy === "amount" && "font-bold")}>
         {invoice.currency === "GBP" ? "£" : null}{" "}
         {invoice.amount.toLocaleString("en-GB", { maximumFractionDigits: 0 })}

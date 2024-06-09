@@ -28,9 +28,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="h-screen">
+            <div className="min-h-screen flex flex-col">
               <Header />
-              {children}
+              <div className="flex flex-col flex-grow overflow-hidden">
+                {children}
+              </div>
             </div>
           </ThemeProvider>
         </JsonDataProvider>

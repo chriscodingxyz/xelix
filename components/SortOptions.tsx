@@ -41,6 +41,7 @@ export default function SortOptions() {
   return (
     <div className="flex flex-col items-center w-full p-4 pt-0">
       <h1 className="text-2xl font-bold">Sort Options</h1>
+
       <div className="flex gap-2 flex-wrap justify-center">
         {renderButton("invoice_number", "Invoice #")}
         {renderButton("due_date", "Date")}
