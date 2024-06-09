@@ -15,6 +15,7 @@ export default function OriginalStats() {
   const overallDate = uploadedJsonData?.pay_run.date;
   const pendingCount = data.filter((inv) => inv.status === "pending").length;
   const approvedCount = data.filter((inv) => inv.status === "approved").length;
+  const excludedCount = data.filter((inv) => inv.excluded).length;
 
   return (
     <div className=" w-full p-4 pt-0 flex-center text-sm">
@@ -25,6 +26,7 @@ export default function OriginalStats() {
         <p>Overall Date: {overallDate}</p>
         <p>Pending: {pendingCount}</p>
         <p>Approved: {approvedCount}</p>
+        <p>Excluded: {excludedCount}</p>
       </div>
     </div>
   );
