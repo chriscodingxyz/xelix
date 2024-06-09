@@ -51,7 +51,7 @@ export default function InvoiceCard({ invoice }: any) {
   return (
     <div
       className={cn(
-        "border rounded-lg shadow-md p-4 m-2 bg-background",
+        "border rounded-lg shadow-md p-4 m-2 bg-background text-sm",
         isExcluded && "opacity-50"
       )}
     >
@@ -71,7 +71,7 @@ export default function InvoiceCard({ invoice }: any) {
         {invoice.amount.toLocaleString("en-GB", { maximumFractionDigits: 0 })}
       </p>
       <p className={cn("flex", sortBy === "due_date" && "font-bold")}>
-        <CalendarClock className="pr-1" /> {invoice.due_date}
+        <CalendarClock size={16} className="mr-1" /> {invoice.due_date}
       </p>
       <div className="flex items-center justify-between">
         <span

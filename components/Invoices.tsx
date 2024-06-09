@@ -114,6 +114,7 @@ export default function Invoices() {
                       onClick={() => setSelectedSupplier(supplier)}
                       variant={"linkHover2"}
                       size={"tiny"}
+                      className="text-xs"
                     >
                       Approve All
                     </Button>
@@ -152,13 +153,14 @@ export default function Invoices() {
                   onClick={() => excludeAllByComp(supplier)}
                   variant={"linkHover2"}
                   size={"tiny"}
+                  className="text-xs"
                 >
                   Exclude All
                 </Button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
               {sortInvoices(
                 groupedInvoices[supplier],
                 sortBy,
