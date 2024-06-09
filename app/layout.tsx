@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import ThemeToggle from "@/components/ThemeToggle";
 import Header from "@/components/Header";
 import { JsonDataProvider } from "@/context/JsonDataContext";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
                 {children}
               </div>
             </div>
+            <Toaster richColors />
           </ThemeProvider>
         </JsonDataProvider>
       </body>

@@ -1,6 +1,8 @@
 import { useJsonData } from "@/context/JsonDataContext";
 import React from "react";
 import InvoiceCard from "./InvoiceCard";
+import { Button } from "./ui/button";
+import { toast } from "sonner";
 
 type TInvoice = {
   invoice_number: string;
@@ -12,7 +14,7 @@ type TInvoice = {
 };
 
 export default function Invoices() {
-  const { data, sortBy, sortDirection } = useJsonData();
+  const { data, sortBy, sortDirection, setData } = useJsonData();
 
   // makes most sense to group by supplier and then sort within each supplier
   const groupBySupplier = (invoices: any[]) => {
@@ -55,12 +57,35 @@ export default function Invoices() {
 
   const groupedInvoices = groupBySupplier(data || []);
 
+  function approveAllByComp(company: string) {
+    const updatedData = data.map((inv) => {
+      if (inv.supplier === company) {
+        return { ...inv, status: "approved" };
+      }
+      return inv;
+    });
+    setData(updatedData);
+    toast.info("Approved all invoices for " + company);
+  }
+
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <div className="flex-grow overflow-auto p-4">
         {Object.keys(groupedInvoices).map((supplier) => (
           <div key={supplier} className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">{supplier}</h2>
+            <div className="flex justify-between">
+              <h2 className="text-2xl font-bold mb-4">{supplier}</h2>
+              <span>
+                <Button
+                  onClick={() => approveAllByComp(supplier)}
+                  variant={"linkHover2"}
+                  size={"sm"}
+                >
+                  Approve All
+                </Button>
+              </span>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {sortInvoices(
                 groupedInvoices[supplier],
