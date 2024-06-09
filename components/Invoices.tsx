@@ -164,6 +164,7 @@ export default function Invoices() {
                       Approve All
                     </Button>
                   )}
+                  |
                   <Button
                     onClick={() => excludeAllByComp(supplier)}
                     variant={"linkHover2"}
