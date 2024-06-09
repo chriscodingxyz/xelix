@@ -25,6 +25,7 @@ export default function SortOptions() {
   ) => (
     <Button
       variant={sortBy === criteria ? "default" : "outline"}
+      size={"sm"}
       onClick={() => handleSort(criteria)}
       className="flex items-center space-x-2 text-xs"
     >
@@ -39,7 +40,7 @@ export default function SortOptions() {
   );
 
   return (
-    <div className="flex flex-col items-center w-full p-4 pt-0">
+    <div className="flex-center flex-col items-center w-full p-4 pt-0">
       <h1 className="text-2xl font-bold">Sort Options</h1>
 
       <div className="flex gap-2 flex-wrap justify-center">
