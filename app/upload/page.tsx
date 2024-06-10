@@ -5,6 +5,7 @@ import { useJsonData } from "@/context/JsonDataContext";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { FolderSearch } from "lucide-react";
+import { examplejson } from "@/lib/data";
 
 export default function UploadPage() {
   const { setUploadedJsonData } = useJsonData();
@@ -25,7 +26,7 @@ export default function UploadPage() {
             const json = JSON.parse(e.target?.result as string);
             setUploadedJsonData(json);
             console.log("uploaded json data");
-
+            console.log(json);
             router.push("/review");
           } catch (error) {
             console.error("Error parsing JSON:", error);
@@ -85,6 +86,17 @@ export default function UploadPage() {
           ref={fileInputRef}
           className="hidden"
         />
+      </div>
+      <div className="mt-4 flex-center flex-col">
+        <Button
+          onClick={() => {
+            setUploadedJsonData(examplejson);
+            router.push("/review");
+          }}
+          variant={"linkHover1"}
+        >
+          Use example file
+        </Button>
       </div>
     </main>
   );
