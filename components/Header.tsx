@@ -91,12 +91,12 @@ export default function Header() {
   return (
     <header className="w-full flex items-center justify-between p-2 border-b font-bold">
       <span>
-        <a href="">PayWorks 1:18</a>
+        <a href="">PayWorks 1:29</a>
       </span>
       <div className="flex space-x-4">
         {data && data.length > 0 && hasApprovedInvoices && (
           <Button
-            onClick={() => {
+            onClick={async () => {
               if (hasPendingButNotExcluded) {
                 toast.warning(
                   "Please first exclude pending invoices before exporting approved invoices"
@@ -106,13 +106,13 @@ export default function Header() {
 
               handleExportApproved();
               if (hasPendingInvoices) {
+                await new Promise((resolve) => setTimeout(resolve, 10000));
                 toast("Export Pending also?", {
                   action: {
                     label: "Export",
                     onClick: () => handleExportPending(),
                   },
                 });
-                // setTimeout(handleExportPending, 1000);
               }
             }}
             variant={"outline"}
