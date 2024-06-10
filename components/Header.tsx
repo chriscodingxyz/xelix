@@ -91,7 +91,7 @@ export default function Header() {
   return (
     <header className="w-full flex items-center justify-between p-2 border-b font-bold">
       <span>
-        <a href="">PayWorks 1:29</a>
+        <a href="">PayWorks 1:32</a>
       </span>
       <div className="flex space-x-4">
         {data && data.length > 0 && hasApprovedInvoices && (
@@ -106,7 +106,7 @@ export default function Header() {
 
               handleExportApproved();
               if (hasPendingInvoices) {
-                await new Promise((resolve) => setTimeout(resolve, 10000));
+                await new Promise((resolve) => setTimeout(resolve, 5000));
                 toast("Export Pending also?", {
                   action: {
                     label: "Export",
