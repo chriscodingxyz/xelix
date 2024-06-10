@@ -45,6 +45,50 @@ type TInvoice = {
   excluded: boolean;
 };
 
+const InvoiceActions = ({ invoice }: { invoice: TInvoice }) => {
+  const { data, setData } = useJsonData();
+
+  const handleApprove = (invoiceNumber: string) => {
+    const updatedData = data.map((inv) => {
+      if (inv.invoice_number === invoiceNumber) {
+        return { ...inv, status: "approved", excluded: false };
+      }
+      return inv;
+    });
+    setData(updatedData);
+  };
+
+  const handleExclude = (invoiceNumber: string) => {
+    const updatedData = data.map((inv) => {
+      if (inv.invoice_number === invoiceNumber) {
+        return { ...inv, excluded: true, status: "pending" };
+      }
+      return inv;
+    });
+    setData(updatedData);
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <CircleEllipsis className="p-1" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuItem onClick={() => handleApprove(invoice.invoice_number)}>
+          Approve
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleExclude(invoice.invoice_number)}>
+          Exclude
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 const columns: ColumnDef<TInvoice>[] = [
   {
     id: "select",
@@ -170,54 +214,7 @@ const columns: ColumnDef<TInvoice>[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: ({ row }) => {
-      const invoice = row.original;
-      const { data, setData } = useJsonData();
-
-      const handleApprove = (invoiceNumber: string) => {
-        const updatedData = data.map((inv) => {
-          if (inv.invoice_number === invoiceNumber) {
-            return { ...inv, status: "approved", excluded: false };
-          }
-          return inv;
-        });
-        setData(updatedData);
-      };
-
-      const handleExclude = (invoiceNumber: string) => {
-        const updatedData = data.map((inv) => {
-          if (inv.invoice_number === invoiceNumber) {
-            return { ...inv, excluded: true, status: "pending" };
-          }
-          return inv;
-        });
-        setData(updatedData);
-      };
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <CircleEllipsis className="p-1" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => handleApprove(invoice.invoice_number)}
-            >
-              Approve
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handleExclude(invoice.invoice_number)}
-            >
-              Exclude
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ({ row }) => <InvoiceActions invoice={row.original} />,
   },
 ];
 
@@ -273,7 +270,7 @@ function InvoiceTableCN() {
   };
 
   return (
-    <div className="w-full flex flex-col h-[100dvh]">
+    <div className="w-full flex flex-col h-screen">
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter by supplier..."
@@ -320,9 +317,9 @@ function InvoiceTableCN() {
           Exclude Selected
         </Button>
       </div>
-      <div className="flex-grow overflow-auto rounded-md border pb-[300px]">
+      <div className="flex-grow overflow-auto rounded-md border">
         <Table>
-          <TableHeader>
+          <TableHeader className="sticky top-0 bg-white">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -369,10 +366,10 @@ function InvoiceTableCN() {
             )}
           </TableBody>
         </Table>
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
+      </div>
+      <div className="flex-1 text-sm text-muted-foreground py-4">
+        {table.getFilteredSelectedRowModel().rows.length} of{" "}
+        {table.getFilteredRowModel().rows.length} row(s) selected.
       </div>
     </div>
   );
