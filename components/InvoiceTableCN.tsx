@@ -77,12 +77,12 @@ const InvoiceActions = ({ invoice }: { invoice: TInvoice }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        {/* <DropdownMenuLabel>Actions</DropdownMenuLabel> */}
         <DropdownMenuItem onClick={() => handleApprove(invoice.invoice_number)}>
-          Approve
+          ✅ Approve
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleExclude(invoice.invoice_number)}>
-          Exclude
+          ❌ Exclude
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
