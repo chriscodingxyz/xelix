@@ -104,9 +104,13 @@ export default function Invoices() {
     const approvedCount = invoices.filter(
       (inv) => inv.status === "approved"
     ).length;
+    const excludedCount = invoices.filter((inv) => inv.excluded).length;
     const totalCount = invoices.length;
     if (approvedCount === totalCount) {
       return "✅";
+    }
+    if (excludedCount === totalCount) {
+      return "❌";
     } else return `(${approvedCount}/${totalCount})`;
   };
 
