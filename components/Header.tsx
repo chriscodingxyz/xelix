@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header className="w-full flex items-center justify-between p-2 border-b font-bold">
       <span>
-        <a href="">Xelix</a>
+        <a href="">PayWorks</a>
       </span>
       <span>Pay Review</span>
       <ThemeToggle />

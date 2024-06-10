@@ -26,7 +26,7 @@ type TInvoice = {
 };
 
 export default function Invoices() {
-  const { data, sortBy, sortDirection, setData } = useJsonData();
+  const { data, sortBy, sortDirection, setData, allCollapsed } = useJsonData();
   const [selectedSupplier, setSelectedSupplier] = useState<string | null>(null);
 
   // makes most sense to group by supplier and then sort within each supplier
@@ -106,8 +106,10 @@ export default function Invoices() {
         {Object.keys(groupedInvoices).map((supplier) => (
           <div key={supplier} className="mb-8">
             <div className="sticky top-0 bg-background z-10">
-              <div className="flex justify-between items-center  py-2">
+              <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-bold">{supplier}</h2>
+
+                {/* {allCollapsed ? null : <span>not allCollapsed</span>} */}
                 <div className="flex-center space-x-2">
                   {groupedInvoices[supplier].some(
                     (inv: TInvoice) => inv.excluded
@@ -177,15 +179,17 @@ export default function Invoices() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
-              {sortInvoices(
-                groupedInvoices[supplier],
-                sortBy,
-                sortDirection
-              ).map((invoice: any) => (
-                <InvoiceCard key={invoice.invoice_number} invoice={invoice} />
-              ))}
-            </div>
+            {!allCollapsed && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
+                {sortInvoices(
+                  groupedInvoices[supplier],
+                  sortBy,
+                  sortDirection
+                ).map((invoice: any) => (
+                  <InvoiceCard key={invoice.invoice_number} invoice={invoice} />
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </div>

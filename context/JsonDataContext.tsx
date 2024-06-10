@@ -13,6 +13,8 @@ interface JsonDataContextType {
   ) => void;
   sortDirection: "asc" | "desc";
   setSortDirection: (direction: "asc" | "desc") => void;
+  allCollapsed: boolean;
+  handleCollapse: () => void;
 }
 
 // ok lets create the context
@@ -28,6 +30,11 @@ export const JsonDataProvider = ({ children }: { children: ReactNode }) => {
     "invoice_number" | "due_date" | "amount" | "status"
   >("invoice_number");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [allCollapsed, setAllCollapsed] = useState(false);
+
+  const handleCollapse = () => {
+    setAllCollapsed(!allCollapsed);
+  };
 
   return (
     <JsonDataContext.Provider
@@ -40,6 +47,8 @@ export const JsonDataProvider = ({ children }: { children: ReactNode }) => {
         setSortBy,
         sortDirection,
         setSortDirection,
+        allCollapsed,
+        handleCollapse,
       }}
     >
       {children}

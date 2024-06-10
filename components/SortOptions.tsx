@@ -7,7 +7,14 @@ import { ArrowUp, ArrowDown } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 
 export default function SortOptions() {
-  const { sortBy, setSortBy, sortDirection, setSortDirection } = useJsonData();
+  const {
+    sortBy,
+    setSortBy,
+    sortDirection,
+    setSortDirection,
+    allCollapsed,
+    handleCollapse,
+  } = useJsonData();
 
   const handleSort = (
     criteria: "invoice_number" | "due_date" | "amount" | "status"
@@ -49,6 +56,9 @@ export default function SortOptions() {
         {renderButton("due_date", "Date")}
         {renderButton("amount", "Amount")}
         {renderButton("status", "Status")}
+        <Button variant={"ringHover"} size={"tiny"} onClick={handleCollapse}>
+          {allCollapsed ? "Expand" : "Collapse"}
+        </Button>
         {/* <Checkbox /> */}
       </div>
     </div>

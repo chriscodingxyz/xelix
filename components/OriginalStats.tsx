@@ -29,7 +29,7 @@ export default function OriginalStats() {
 
   return (
     <div className="w-full mb-2">
-      <Accordion type="single" collapsible>
+      <Accordion defaultValue="item-1" type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger className="p-2">
             <span className="flex gap-2">
