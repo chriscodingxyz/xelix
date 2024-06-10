@@ -91,7 +91,7 @@ export default function Header() {
   return (
     <header className="w-full flex items-center justify-between p-2 border-b font-bold">
       <span>
-        <a href="">PayWorks</a>
+        <a href="">PayWorks 1:18</a>
       </span>
       <div className="flex space-x-4">
         {data && data.length > 0 && hasApprovedInvoices && (
@@ -106,7 +106,13 @@ export default function Header() {
 
               handleExportApproved();
               if (hasPendingInvoices) {
-                setTimeout(handleExportPending, 1000);
+                toast("Export Pending also?", {
+                  action: {
+                    label: "Export",
+                    onClick: () => handleExportPending(),
+                  },
+                });
+                // setTimeout(handleExportPending, 1000);
               }
             }}
             variant={"outline"}
