@@ -107,7 +107,7 @@ export default function Invoices() {
           <div key={supplier} className="mb-8">
             <div className="sticky top-0 bg-background z-10">
               <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold">{supplier}</h2>
+                <h2 className="text-lg font-bold">{supplier}</h2>
 
                 {/* {allCollapsed ? null : <span>not allCollapsed</span>} */}
                 <div className="flex-center space-x-2">
