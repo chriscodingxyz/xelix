@@ -154,7 +154,7 @@ const columns: ColumnDef<TInvoice>[] = [
         currency: "GBP",
       }).format(amount);
 
-      return <div className="text-right font-medium">{formatted}</div>;
+      return <div className="text-left font-medium">{formatted}</div>;
     },
   },
   {
