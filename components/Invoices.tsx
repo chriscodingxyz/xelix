@@ -100,6 +100,16 @@ export default function Invoices() {
     toast.info(`Excluded all invoices for ${company}`);
   }
 
+  const getApprovedCount = (invoices: TInvoice[]) => {
+    const approvedCount = invoices.filter(
+      (inv) => inv.status === "approved"
+    ).length;
+    const totalCount = invoices.length;
+    if (approvedCount === totalCount) {
+      return "✅";
+    } else return `(${approvedCount}/${totalCount})`;
+  };
+
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <div className="flex-grow overflow-auto px-4">
@@ -107,9 +117,14 @@ export default function Invoices() {
           <div key={supplier} className="mb-8">
             <div className="sticky top-0 bg-background z-10">
               <div className="flex justify-between items-center">
-                <h2 className="text-lg font-bold">{supplier}</h2>
+                <h2 className="text-lg font-bold">
+                  {supplier}{" "}
+                  <span className="text-xs">
+                    {" "}
+                    {getApprovedCount(groupedInvoices[supplier])}
+                  </span>
+                </h2>
 
-                {/* {allCollapsed ? null : <span>not allCollapsed</span>} */}
                 <div className="flex-center space-x-2">
                   {groupedInvoices[supplier].some(
                     (inv: TInvoice) => inv.excluded
