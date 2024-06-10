@@ -116,7 +116,7 @@ export default function Invoices() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <div className="flex-grow overflow-auto px-4">
+      <div className="flex-grow overflow-auto px-4 pb-60">
         {Object.keys(groupedInvoices).map((supplier) => (
           <div key={supplier} className="mb-8">
             <div className="sticky top-0 bg-background z-10">
