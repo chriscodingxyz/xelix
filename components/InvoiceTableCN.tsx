@@ -319,7 +319,7 @@ function InvoiceTableCN() {
       </div>
       <div className="flex-grow overflow-auto rounded-md border">
         <Table>
-          <TableHeader className="sticky top-0 bg-white">
+          <TableHeader className="">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
