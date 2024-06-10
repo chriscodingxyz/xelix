@@ -30,11 +30,11 @@ export default function ReviewPage() {
         <Invoices />
       </div>
 
-      <div className="flex-center">
+      {/* <div className="flex-center">
         <Button variant={"linkHover2"} size={"sm"}>
           <Download className="p-1" /> Download .json
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }

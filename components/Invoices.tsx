@@ -121,7 +121,7 @@ export default function Invoices() {
           <div key={supplier} className="mb-8">
             <div className="sticky top-0 bg-background z-10">
               <div className="flex justify-between items-center">
-                <h2 className="text-lg font-bold">
+                <h2 className="sm:text-lg md:text-xl font-bold">
                   {supplier}{" "}
                   <span className="text-xs">
                     {" "}
