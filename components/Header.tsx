@@ -7,9 +7,12 @@ import { Download, FolderOutput } from "lucide-react";
 import { useJsonData } from "@/context/JsonDataContext";
 import { toast } from "sonner";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const { data, uploadedJsonData } = useJsonData();
+
+  const pathname = usePathname();
 
   const hasApprovedInvoices =
     data && data.some((invoice) => invoice.status === "approved");
@@ -121,10 +124,13 @@ export default function Header() {
           >
             Export <FolderOutput className="p-1" />
           </Button>
-        ) : // <Link href="/qr">
-        // <Button size={"sm"}>View on mobile</Button>
-        // </Link>
-        null}
+        ) : (
+          pathname === "/upload" && (
+            <Link className="hidden sm:flex " href="/qr">
+              <Button size={"sm"}>View on mobile</Button>
+            </Link>
+          )
+        )}
       </div>
       <ThemeToggle />
     </header>
