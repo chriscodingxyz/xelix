@@ -34,7 +34,7 @@ export default function OriginalStats() {
           <AccordionTrigger className="p-2">
             <span className="flex gap-2">
               <FileBarChart2 />
-              Stats
+              Summary
             </span>
           </AccordionTrigger>
           <AccordionContent>
