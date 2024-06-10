@@ -152,9 +152,11 @@ const columns: ColumnDef<TInvoice>[] = [
       const formatted = new Intl.NumberFormat("en-GB", {
         style: "currency",
         currency: "GBP",
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
       }).format(amount);
 
-      return <div className="text-left font-medium">{formatted}</div>;
+      return <div className="text-center font-medium">{formatted}</div>;
     },
   },
   {
