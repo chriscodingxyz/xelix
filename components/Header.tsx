@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { Download, FolderOutput } from "lucide-react";
 import { useJsonData } from "@/context/JsonDataContext";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function Header() {
   const { data, uploadedJsonData } = useJsonData();
@@ -91,10 +92,10 @@ export default function Header() {
   return (
     <header className="w-full flex items-center justify-between p-2 border-b font-bold">
       <span>
-        <a href="">PayWorks</a>
+        <a href="/">PayWorks</a>
       </span>
       <div className="flex space-x-4">
-        {data && data.length > 0 && hasApprovedInvoices && (
+        {data && data.length > 0 && hasApprovedInvoices ? (
           <Button
             onClick={async () => {
               if (hasPendingButNotExcluded) {
@@ -120,7 +121,10 @@ export default function Header() {
           >
             Export <FolderOutput className="p-1" />
           </Button>
-        )}
+        ) : // <Link href="/qr">
+        // <Button size={"sm"}>View on mobile</Button>
+        // </Link>
+        null}
       </div>
       <ThemeToggle />
     </header>
