@@ -29,7 +29,6 @@ export default function Invoices() {
   const { data, sortBy, sortDirection, setData, allCollapsed } = useJsonData();
   const [selectedSupplier, setSelectedSupplier] = useState<string | null>(null);
 
-  // makes most sense to group by supplier and then sort within each supplier
   const groupBySupplier = (invoices: any[]) => {
     return invoices.reduce((groups, invoice) => {
       const supplier = invoice.supplier;
@@ -41,7 +40,6 @@ export default function Invoices() {
     }, {} as { [key: string]: TInvoice[] });
   };
 
-  // sorting invoices depending on sortBy context value...also by asc or desc!!
   const sortInvoices = (
     invoices: TInvoice[],
     sortBy: string,
@@ -100,8 +98,6 @@ export default function Invoices() {
     toast.info(`Excluded all invoices for ${company}`);
   }
 
-  //technically this is also excluded count, but didnt want to change the name
-  //this is shown next to the company title to show user if they finished that company or not, great for collapsed view
   const getApprovedCount = (invoices: TInvoice[]) => {
     const approvedCount = invoices.filter(
       (inv) => inv.status === "approved"
@@ -131,9 +127,6 @@ export default function Invoices() {
                   </span>
                 </h2>
 
-                {
-                  //some logic if there are some exclusions and we want to approve etc
-                }
                 <div className="flex-center">
                   {groupedInvoices[supplier].some(
                     (inv: TInvoice) => inv.excluded
@@ -203,9 +196,6 @@ export default function Invoices() {
               </div>
             </div>
 
-            {
-              //finally the card itself, not much here, will show if not collapsed
-            }
             {!allCollapsed && (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1">
                 {sortInvoices(

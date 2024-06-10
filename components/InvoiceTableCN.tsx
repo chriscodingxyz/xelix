@@ -270,8 +270,8 @@ function InvoiceTableCN() {
   };
 
   return (
-    <div className="w-full flex flex-col h-screen">
-      <div className="flex items-center py-4">
+    <div className="w-full flex flex-col h-full px-2">
+      <div className="flex items-center py-1">
         <Input
           placeholder="Filter by supplier..."
           value={
@@ -319,7 +319,7 @@ function InvoiceTableCN() {
       </div>
       <div className="flex-grow overflow-auto rounded-md border">
         <Table>
-          <TableHeader className="">
+          <TableHeader className="sticky top-0 ">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -367,7 +367,7 @@ function InvoiceTableCN() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex-1 text-sm text-muted-foreground py-4">
+      <div className="text-sm text-muted-foreground py-4">
         {table.getFilteredSelectedRowModel().rows.length} of{" "}
         {table.getFilteredRowModel().rows.length} row(s) selected.
       </div>
@@ -376,24 +376,3 @@ function InvoiceTableCN() {
 }
 
 export default InvoiceTableCN;
-
-{
-  /* <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div> */
-}
