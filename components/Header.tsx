@@ -3,7 +3,7 @@
 import React from "react";
 import ThemeToggle from "./ThemeToggle";
 import { Button } from "./ui/button";
-import { Download, FolderOutput } from "lucide-react";
+import { Download, FolderOutput, Smartphone } from "lucide-react";
 import { useJsonData } from "@/context/JsonDataContext";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -127,7 +127,10 @@ export default function Header() {
         ) : (
           pathname === "/upload" && (
             <Link className="hidden sm:flex " href="/qr">
-              <Button size={"sm"}>View on mobile</Button>
+              <Button size={"sm"}>
+                View on mobile
+                <Smartphone className="p-1" />
+              </Button>
             </Link>
           )
         )}

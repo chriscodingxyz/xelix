@@ -4,6 +4,7 @@ import React, { useCallback, useRef } from "react";
 import { useJsonData } from "@/context/JsonDataContext";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { FolderSearch } from "lucide-react";
 
 export default function UploadPage() {
   const { setUploadedJsonData } = useJsonData();
@@ -74,7 +75,9 @@ export default function UploadPage() {
     >
       <div className="p-4 rounded shadow-md w-64 h-32 flex flex-col items-center justify-center border-2 border-dashed border-gray-300">
         <p className="text-center">Drag and drop a .json file</p>
-        <Button onClick={handleButtonClick}>Browse Files</Button>
+        <Button onClick={handleButtonClick}>
+          Browse Files <FolderSearch className="p-1" />
+        </Button>
         <input
           type="file"
           accept=".json"
