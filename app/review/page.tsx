@@ -1,5 +1,6 @@
 "use client";
 
+import InvoiceTableCN from "@/components/InvoiceTableCN";
 import Invoices from "@/components/Invoices";
 import OriginalStats from "@/components/OriginalStats";
 import SortOptions from "@/components/SortOptions";
@@ -10,7 +11,8 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 export default function ReviewPage() {
-  const { uploadedJsonData, data, setData } = useJsonData();
+  const { uploadedJsonData, data, setData, isDataTable, handleIsDataTable } =
+    useJsonData();
 
   if (!uploadedJsonData) {
     redirect("/upload");
@@ -24,11 +26,18 @@ export default function ReviewPage() {
     <div className="flex flex-col h-full w-full">
       <div className="flex flex-col items-center w-full md:w-auto px-4 pb-2">
         <OriginalStats />
-        <SortOptions />
+        {!isDataTable && <SortOptions />}
       </div>
-      <div className="flex-grow overflow-hidden">
-        <Invoices />
-      </div>
+
+      {isDataTable ? (
+        <div className="flex-grow p-2">
+          <InvoiceTableCN />
+        </div>
+      ) : (
+        <div className="flex-grow overflow-hidden">
+          <Invoices />
+        </div>
+      )}
     </div>
   );
 }

@@ -10,7 +10,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
-  const { data, uploadedJsonData } = useJsonData();
+  const { data, uploadedJsonData, isDataTable, handleIsDataTable } =
+    useJsonData();
 
   const pathname = usePathname();
 
@@ -135,6 +136,14 @@ export default function Header() {
           )
         )}
       </div>
+      {pathname === "/review" && (
+        <div>
+          <Button size={"tiny"} onClick={() => handleIsDataTable()}>
+            View: {isDataTable ? "table" : "cards"}
+          </Button>
+        </div>
+      )}
+
       <ThemeToggle />
     </header>
   );
