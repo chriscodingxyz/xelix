@@ -106,7 +106,7 @@ export default function Header() {
 
               handleExportApproved();
               if (hasPendingInvoices) {
-                handleExportPending();
+                setTimeout(handleExportPending, 1000);
               }
             }}
             variant={"outline"}
