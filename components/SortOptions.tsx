@@ -56,8 +56,8 @@ export default function SortOptions() {
         {renderButton("due_date", "Date")}
         {renderButton("amount", "Amount")}
         {renderButton("status", "Status")}
-        <Button variant={"ringHover"} size={"tiny"} onClick={handleCollapse}>
-          {allCollapsed ? "Expand" : "Collapse"}
+        <Button variant={"secondary"} size={"tiny"} onClick={handleCollapse}>
+          {allCollapsed ? <ArrowDown size={16} /> : <ArrowUp size={16} />}
         </Button>
         {/* <Checkbox /> */}
       </div>
