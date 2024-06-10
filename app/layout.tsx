@@ -39,9 +39,7 @@ export default function RootLayout({
           >
             <div className="min-h-[100dvh] flex flex-col">
               <Header />
-              <div className="flex flex-col flex-grow overflow-hidden">
-                {children}
-              </div>
+              <main className="flex flex-grow overflow-hidden">{children}</main>
             </div>
             <Toaster richColors />
           </ThemeProvider>

@@ -69,7 +69,7 @@ export default function UploadPage() {
 
   return (
     <main
-      className="flex min-h-[100dvh] flex-col items-center justify-center"
+      className="flex-center min-h-[100dvh] flex-col w-full"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >

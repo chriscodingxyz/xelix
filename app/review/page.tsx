@@ -21,20 +21,14 @@ export default function ReviewPage() {
   }
   //revert back to here
   return (
-    <div className="flex flex-col flex-grow overflow-hidden">
+    <div className="flex flex-col h-full w-full">
       <div className="flex flex-col items-center w-full md:w-auto px-4 pb-2">
         <OriginalStats />
         <SortOptions />
       </div>
-      <div className="flex-grow overflow-auto border-y border-primary/10">
+      <div className="flex-grow overflow-hidden">
         <Invoices />
       </div>
-
-      {/* <div className="flex-center">
-        <Button variant={"linkHover2"} size={"sm"}>
-          <Download className="p-1" /> Download .json
-        </Button>
-      </div> */}
     </div>
   );
 }
