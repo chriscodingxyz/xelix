@@ -125,7 +125,7 @@ export default function Invoices() {
                   </span>
                 </h2>
 
-                <div className="flex-center space-x-2">
+                <div className="flex-center">
                   {groupedInvoices[supplier].some(
                     (inv: TInvoice) => inv.excluded
                   ) ? (
@@ -134,10 +134,10 @@ export default function Invoices() {
                         <Button
                           onClick={() => setSelectedSupplier(supplier)}
                           variant={"linkHover2"}
-                          size={"tiny"}
+                          size={"extraTiny"}
                           className="text-xs"
                         >
-                          Approve All
+                          Approve
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
@@ -175,20 +175,20 @@ export default function Invoices() {
                     <Button
                       onClick={() => approveAllByComp(supplier, true)}
                       variant={"linkHover2"}
-                      size={"tiny"}
+                      size={"extraTiny"}
                       className="text-xs"
                     >
-                      Approve All
+                      Approve
                     </Button>
                   )}
-                  |
+                  {` | `}
                   <Button
                     onClick={() => excludeAllByComp(supplier)}
                     variant={"linkHover2"}
-                    size={"tiny"}
+                    size={"extraTiny"}
                     className="text-xs"
                   >
-                    Exclude All
+                    Exclude
                   </Button>
                 </div>
               </div>
