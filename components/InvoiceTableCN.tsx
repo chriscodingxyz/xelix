@@ -310,10 +310,18 @@ function InvoiceTableCN() {
         </DropdownMenu>
       </div>
       <div className="flex space-x-2 py-1">
-        <Button onClick={handleApproveSelected} variant="secondary">
+        <Button
+          onClick={handleApproveSelected}
+          variant="secondary"
+          size={"tiny"}
+        >
           Approve Selected
         </Button>
-        <Button onClick={handleExcludeSelected} variant="secondary">
+        <Button
+          onClick={handleExcludeSelected}
+          variant="secondary"
+          size={"tiny"}
+        >
           Exclude Selected
         </Button>
       </div>

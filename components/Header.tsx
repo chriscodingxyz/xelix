@@ -8,6 +8,7 @@ import { useJsonData } from "@/context/JsonDataContext";
 import { toast } from "sonner";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export default function Header() {
   const { data, uploadedJsonData, isDataTable, handleIsDataTable } =
@@ -138,8 +139,12 @@ export default function Header() {
       </div>
       {pathname === "/review" && (
         <div>
-          <Button size={"tiny"} onClick={() => handleIsDataTable()}>
-            View: {isDataTable ? "table" : "cards"}
+          <Button
+            variant={"outline"}
+            size={"sm"}
+            onClick={() => handleIsDataTable()}
+          >
+            {!isDataTable ? "Card View" : "Table View"}
           </Button>
         </div>
       )}
