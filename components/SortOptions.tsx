@@ -4,7 +4,6 @@ import React from "react";
 import { Button } from "./ui/button";
 import { useJsonData } from "@/context/JsonDataContext";
 import { ArrowUp, ArrowDown } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
 
 export default function SortOptions() {
   const {
